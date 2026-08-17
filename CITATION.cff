@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it as below."
+title: "Rhine-Main Heat Risk Forecasting"
+type: software
+authors:
+  - family-names: Sarwar
+    given-names: Muhammad Umair
+version: 1.0.0
+date-released: 2026-08-17
+license: MIT
+repository-code: "https://github.com/MUmairSarwar/germany-heat-risk-forecasting"
+

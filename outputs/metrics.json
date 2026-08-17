@@ -1,0 +1,49 @@
+{
+  "project": "Rhine-Main Heat Risk Forecasting",
+  "station": {
+    "id": 917,
+    "name": "Darmstadt"
+  },
+  "data_period": {
+    "start": "1995-08-01",
+    "end": "2026-08-16"
+  },
+  "splits": {
+    "train_days": 9999,
+    "validation_days": 731,
+    "holdout_days": 558
+  },
+  "selected_model": "hist_gradient_boosting",
+  "validation_mae_c": {
+    "ridge": 2.1231686447173446,
+    "hist_gradient_boosting": 1.901214346910542,
+    "persistence": 2.2890560875513,
+    "seasonal_climatology": 3.4123931345545566
+  },
+  "classifier_threshold": 0.615,
+  "conformal_radius_c": 3.069767376345645,
+  "holdout_metrics": {
+    "holdout_days": 558,
+    "holdout_hot_days": 66,
+    "temperature_mae_c": 2.2786055879573976,
+    "temperature_rmse_c": 2.9075376640127804,
+    "interval_80_coverage": 0.7114695340501792,
+    "interval_mean_width_c": 6.13953475269129,
+    "hot_day_precision": 0.5284552845528455,
+    "hot_day_recall": 0.9848484848484849,
+    "hot_day_f1": 0.6878306878306878,
+    "hot_day_brier": 0.09986316415548112,
+    "hot_day_pr_auc": 0.7669228347296413,
+    "hot_day_roc_auc": 0.9681879773343187,
+    "persistence_comparison_days": 557,
+    "persistence_mae_c": 2.535547576301616,
+    "selected_mae_on_persistence_days_c": 2.2737870490519754,
+    "mae_improvement_vs_persistence_pct": 10.32362909283083,
+    "seasonal_climatology_mae_c": 3.7719977337808874
+  },
+  "trend": {
+    "theil_sen_hot_days_per_year": 0.4166666666666667,
+    "bootstrap_slope_ci_95_low": 0.19359375,
+    "bootstrap_slope_ci_95_high": 0.6087560386473427
+  }
+}

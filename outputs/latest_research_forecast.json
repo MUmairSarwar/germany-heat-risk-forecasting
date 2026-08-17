@@ -1,0 +1,10 @@
+{
+  "forecast_for": "2026-08-17",
+  "predicted_tmax_c": 31.84,
+  "interval_80_c": [
+    28.77,
+    34.91
+  ],
+  "hot_day_probability": 0.9968,
+  "research_only": true
+}
