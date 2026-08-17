@@ -103,7 +103,13 @@ Source: **Deutscher Wetterdienst (DWD), Climate Data Center**, station 00917
 Darmstadt. DWD makes climate data available on its Open Data server. Variable
 definitions and limitations are documented in [`docs/data_card.md`](docs/data_card.md).
 
+## Other selected projects
+
+- [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
+- [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
+- [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
+- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification-toy)
+
 ## Author
 
-Muhammad Umair Sarwar — incoming M.Sc. Mathematics student (Mathematics in Data
-Science), TU Darmstadt.
+Muhammad Umair Sarwar - M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.
