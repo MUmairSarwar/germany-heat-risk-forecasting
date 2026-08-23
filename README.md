@@ -1,47 +1,27 @@
 # Rhine–Main Heat Risk Forecasting
 
+**Project period: May 2026 – August 2026**
+
 [![CI](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/actions/workflows/ci.yml/badge.svg)](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A reproducible data-science project that predicts next-day heat risk in Darmstadt,
-Germany, from official Deutscher Wetterdienst (DWD) observations. It combines
-time-series feature engineering, model comparison, rare-event classification,
-split-conformal uncertainty intervals, and a robust trend estimator.
+A reproducible data-science project that predicts next-day heat risk in Darmstadt, Germany, using official Deutscher Wetterdienst (DWD) observations. The project combines time-series feature engineering, model comparison, rare-event classification, split-conformal uncertainty intervals and robust trend analysis.
 
 ![Heat-risk analytical dashboard](outputs/heat_risk_dashboard.png)
 
-## Why this problem matters
+## Highlights
 
-The DWD defines a **hot day** as one with a maximum air temperature of at least
-30°C. German environmental authorities use hot days and tropical nights to assess
-heat-related health burden. A transparent local model is a useful research case
-for studying early warning, uncertainty, climate drift, and rare events.
+- Built a strict chronological train/validation/holdout pipeline using DWD data.
+- Improved maximum-temperature forecast MAE by **10.3%** over a persistence baseline.
+- Achieved **98.5% hot-day recall** on unseen 2025+ holdout data.
+- Quantified uncertainty using split-conformal prediction intervals.
+- Analysed long-term change with Theil–Sen trend estimation.
+- Added automated tests, model/data cards and reproducible outputs.
 
-This repository is a research project—not an official DWD warning service.
+## Current checked-in results
 
-## Research questions
-
-1. Can simple, reproducible models improve on persistence and seasonal climatology
-   for next-day maximum-temperature prediction?
-2. How reliably can tomorrow's DWD-defined hot day be detected?
-3. Do 80% split-conformal intervals achieve their intended coverage on later data?
-4. How has the annual number of hot days changed at station 00917 since 1995?
-
-## What makes the project research-ready
-
-- Real German public-sector data, downloaded directly from DWD CDC
-- Strict chronological train/validation/holdout design
-- Four transparent regression benchmarks
-- Cost-sensitive hot-day classification with validation-only threshold selection
-- Finite-sample split-conformal prediction intervals
-- Robust Theil–Sen trend estimation with bootstrap uncertainty
-- Automated tests, offline CI smoke test, model/data cards, and deterministic seeds
-
-## Current results
-
-The checked-in experiment uses observations through **2026-08-16** and a strict
-2025+ holdout containing 558 days and 66 hot days.
+The checked-in experiment uses observations through **2026-08-16** and a strict 2025+ holdout containing 558 days and 66 hot days.
 
 | Holdout result | Value |
 |---|---:|
@@ -54,11 +34,7 @@ The checked-in experiment uses observations through **2026-08-16** and a strict
 | Nominal 80% interval coverage | 71.1% |
 | Robust hot-day trend | +0.42 days/year |
 
-The interval's 71.1% holdout coverage is below its 80% target. That failure is kept
-visible rather than hidden: it is evidence that exchangeability is imperfect under
-weather/climate drift and that operational calibration would need monitoring or
-rolling updates. Exact values are generated in
-[`outputs/metrics.json`](outputs/metrics.json).
+The 71.1% holdout interval coverage is below the nominal 80% target. That limitation is kept visible because operational calibration would need monitoring or rolling updates under weather and climate drift.
 
 ## Reproduce
 
@@ -69,47 +45,33 @@ python -m pip install -e .
 heat-risk run
 ```
 
-The run downloads and caches the latest historical and recent daily archives for
-DWD station 00917. Outputs:
-
-- `outputs/metrics.json` — experiment summary and holdout metrics
-- `outputs/holdout_predictions.csv` — auditable daily predictions
-- `outputs/annual_hot_days.csv` — annual climate indicator
-- `outputs/heat_risk_dashboard.png` — four-panel analytical figure
-- `outputs/latest_research_forecast.json` — latest research prediction
-- `models/forecast_bundle.joblib` — fitted model bundle (ignored by Git)
-
 ## Repository structure
 
 ```text
 src/heatrisk/        tested Python package
-tests/               unit tests for data, leakage, and calibration
-docs/                methodology, model card, and data card
-outputs/             generated metrics, predictions, and dashboard
+tests/               unit tests for data, leakage and calibration
+docs/                methodology, model card and data card
+outputs/             generated metrics, predictions and dashboard
 .github/workflows/   CI pipeline
 ```
 
-## Mathematical notes
+## Technologies
 
-The feature map includes lagged weather, trailing moments, and three Fourier
-harmonics for annual seasonality. Ridge regression controls coefficient variance;
-gradient boosting captures nonlinear interactions. The uncertainty band uses a
-calibration quantile of absolute residuals, while the climate trend uses the median
-of pairwise annual slopes. See [`docs/methodology.md`](docs/methodology.md).
+Python, pandas, scikit-learn, time-series analysis, uncertainty analysis, model evaluation, data visualisation and DWD climate data.
 
 ## Data and attribution
 
-Source: **Deutscher Wetterdienst (DWD), Climate Data Center**, station 00917
-Darmstadt. DWD makes climate data available on its Open Data server. Variable
-definitions and limitations are documented in [`docs/data_card.md`](docs/data_card.md).
+Source: **Deutscher Wetterdienst (DWD), Climate Data Center**, station 00917 Darmstadt. This repository is a research project and not an official DWD warning service.
 
 ## Other selected projects
 
+- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification-toy)
+- [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
 - [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
 - [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
-- [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
-- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification-toy)
 
 ## Author
 
-Muhammad Umair Sarwar - M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.
+**Muhammad Umair Sarwar**  
+Incoming M.Sc. Mathematics – Mathematics in Data Science student at TU Darmstadt, starting WS 2026/27.  
+Available from 1 September 2026 for HiWi / Student Research Assistant roles, up to 20 hours/week.
