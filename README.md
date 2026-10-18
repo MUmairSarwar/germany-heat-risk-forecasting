@@ -1,6 +1,6 @@
 # Rhine–Main Heat Risk Forecasting
 
-**Project period: May 2026 – August 2026**
+**Project period: May 2026 – August 2026** (developed locally; published on GitHub in August 2026)
 
 [![CI](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/actions/workflows/ci.yml/badge.svg)](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg)](https://www.python.org/)
@@ -65,14 +65,15 @@ Source: **Deutscher Wetterdienst (DWD), Climate Data Center**, station 00917 Dar
 
 ## Other selected projects
 
-- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification-toy)
+- [Fair Multi-Agent Battery Control (MARL)](https://github.com/MUmairSarwar/fair-multiagent-battery-control)
 - [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
+- [German Energy Operations Analytics](https://github.com/MUmairSarwar/german-energy-operations)
 - [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
-- [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
+- [Strategic Classification](https://github.com/MUmairSarwar/strategic-classification)
 
 ## Author
 
 **Muhammad Umair Sarwar**  
 M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.  
-Open to PhD positions and full-time roles.
+Open to Werkstudent and data science roles in Germany, and to funded PhD positions.
 
