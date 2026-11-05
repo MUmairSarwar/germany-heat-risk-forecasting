@@ -10,6 +10,15 @@ A reproducible data-science project that predicts next-day heat risk in Darmstad
 
 ![Heat-risk analytical dashboard](outputs/heat_risk_dashboard.png)
 
+
+## Data period and version history
+
+- **Current checked-in data coverage:** 1 August 1995 through 16 August 2026, as recorded in [outputs/metrics.json](outputs/metrics.json).
+- **August 2026:** the forecasting package, evaluation outputs, tests and documentation were committed to GitHub.
+- **October 2026:** README author details, publication notes and portfolio links were updated.
+
+The current results use August 2026 observations and therefore describe the August 2026 evaluation version. Earlier development is distinct from the final data snapshot; October README maintenance does not imply a new modelling experiment.
+
 ## Highlights
 
 - Built a strict chronological train/validation/holdout pipeline using DWD data.
