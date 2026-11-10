@@ -17,7 +17,7 @@ A reproducible data-science project that predicts next-day heat risk in Darmstad
 - **August 2026:** the forecasting package, evaluation outputs, tests and documentation were committed to GitHub.
 - **October 2026:** README author details, publication notes and portfolio links were updated.
 
-The current results use August 2026 observations and therefore describe the August 2026 evaluation version. Earlier development is distinct from the final data snapshot; October README maintenance does not imply a new modelling experiment.
+The results below come from the August 2026 run. The October changes were to the README only; the models were not retrained.
 
 ## Highlights
 
