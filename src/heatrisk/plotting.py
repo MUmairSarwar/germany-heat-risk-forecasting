@@ -1,4 +1,4 @@
-"""Generate a compact, recruiter-friendly analytical dashboard."""
+"""Draw the one-page summary dashboard."""
 
 from __future__ import annotations
 
