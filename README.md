@@ -7,7 +7,7 @@ Next-day forecasts of maximum temperature and hot-day risk for Darmstadt, built 
 - the maximum temperature on day $t+1$, with an 80% split-conformal prediction interval, and
 - the probability that day $t+1$ is a hot day in the DWD sense ($T_{\max} \ge 30\,^\circ\mathrm{C}$).
 
-The project also estimates the long-term trend in the number of hot days per year. I worked on it from May to August 2026 and published it in August 2026.
+The project also estimates the long-term trend in the number of hot days per year. I worked on it from April to August 2026: the pipeline and models from April to June, then updated data and the final evaluation in July and August.
 
 ![Heat-risk dashboard](outputs/heat_risk_dashboard.png)
 
