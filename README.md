@@ -1,13 +1,13 @@
-# Rhine–Main Heat Risk Forecasting
+# Darmstadt Heat-Risk Forecasting
 
 [![CI](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/actions/workflows/ci.yml/badge.svg)](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/actions/workflows/ci.yml)
 
 Next-day forecasts of maximum temperature and hot-day risk for Darmstadt, built from daily Deutscher Wetterdienst (DWD) observations at station 00917. At the end of day $t$ the model predicts
 
-- the maximum temperature on day $t+1$, with an 80% split-conformal prediction interval, and
+- the maximum temperature on day $t+1$, with a nominal 80% residual-calibrated prediction interval, and
 - the probability that day $t+1$ is a hot day in the DWD sense ($T_{\max} \ge 30\,^\circ\mathrm{C}$).
 
-The project also estimates the long-term trend in the number of hot days per year. I worked on it from May to August 2026 and published it in August 2026.
+I built the daily data pipeline, compared the forecasts with persistence and seasonal climatology, and estimated a long-term trend in the number of hot days. The first complete version in GitHub is from [17 August 2026](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/commit/b5dc5cc).
 
 ![Heat-risk dashboard](outputs/heat_risk_dashboard.png)
 
@@ -29,7 +29,7 @@ Daily observations from the DWD Climate Data Center, merging the historical and 
 
 **Temperature model** ([`modeling.py`](src/heatrisk/modeling.py)). Ridge regression (with cross-validated $\alpha$) and histogram gradient boosting are fitted on the training set, and the one with lower validation MAE is kept. Persistence ($\hat T_{t+1} = T_t$) and a day-of-year climatology from the training years are reported as baselines.
 
-**Prediction interval.** With validation residuals $r_i = y_i - \hat y_i$, $i = 1, \dots, n$, the interval is $\hat y \pm q$, where $q$ is the $\lceil (n+1)(1-\alpha) \rceil / n$ empirical quantile of $|r_i|$ and $\alpha = 0.2$. Under exchangeability this gives at least 80% marginal coverage. Daily weather is serially dependent and the climate is drifting, so the guarantee is not expected to hold exactly here; the holdout coverage measures how far off it is.
+**Prediction interval.** With validation residuals $r_i = y_i - \hat y_i$, $i = 1, \dots, n$, the interval is $\hat y \pm q$, where $q$ is the $\lceil (n+1)(1-\alpha) \rceil / n$ empirical quantile of $|r_i|$, using NumPy's `higher` quantile rule and $\alpha = 0.2$. This uses a split-conformal calibration recipe. Model selection and calibration share the validation period, and daily weather observations are serially dependent, so the standard coverage guarantee does not apply. Coverage is measured on the holdout.
 
 **Hot-day classifier.** A separate class-weighted logistic regression on the same features estimates $P(T_{\max,t+1} \ge 30\,^\circ\mathrm{C})$. Its decision threshold is the value in $\{0.050, 0.055, \dots, 0.950\}$ that maximises $F_2$ on the validation set, so a missed hot day counts more than a false alarm.
 
@@ -79,7 +79,7 @@ heat-risk run        # download DWD data, train, evaluate, write outputs/
 
 Other commands: `heat-risk download` only fetches and saves the daily data, and `heat-risk demo` draws the dashboard from synthetic predictions without network access (CI uses it as a smoke test). `make install`, `make test` and `make run` wrap the same commands.
 
-`heat-risk run` always downloads the current DWD archives, so a new run will include more recent days than the checked-in outputs and the numbers above will change slightly.
+`heat-risk run` fetches the current recent DWD archive each time and caches the historical archive by its published filename. The checked-in metrics are from the August 2026 data cut. Later runs can differ as DWD adds or revises observations. Run `heat-risk demo` to inspect the output format without fetching data.
 
 ## Repository structure
 

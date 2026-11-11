@@ -25,13 +25,15 @@ days receive more weight than false alarms.
 
 ## Uncertainty
 
-An 80% split-conformal interval is formed as
+A nominal 80% interval using a split-conformal calibration recipe is formed as
 
 `[prediction - q, prediction + q]`,
 
 where `q` is the finite-sample corrected quantile of absolute validation residuals.
-This gives a distribution-free marginal coverage guarantee under exchangeability;
-weather drift and serial dependence can weaken that guarantee.
+The validation period also selects the regression model, so calibration is not
+independent of that selection. Daily weather is serially dependent and can drift.
+The standard marginal-coverage guarantee does not apply to this experiment;
+the held-out coverage is the reported measure.
 
 ## Trend
 

@@ -1,12 +1,41 @@
 import unittest
+from io import BytesIO
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
+from zipfile import ZipFile
 
 import pandas as pd
 
-from heatrisk.data import clean_daily
+from heatrisk.data import clean_daily, load_dwd_daily
 from heatrisk.evaluation import annual_hot_days
 
 
 class DataTests(unittest.TestCase):
+    def test_recent_archive_refreshes_while_named_history_is_cached(self):
+        def archive(day):
+            buffer = BytesIO()
+            with ZipFile(buffer, "w") as zipped:
+                zipped.writestr(
+                    "produkt_klima_tag_test.txt",
+                    "MESS_DATUM;RSK;SDK;VPM;TMK;UPM;TXK;TNK\n"
+                    f"{day};0;1;2;3;4;5;6\n",
+                )
+            return buffer.getvalue()
+
+        historical_url = "https://example.com/tageswerte_KL_00917_20230101_20231231_hist.zip"
+        with TemporaryDirectory() as cache:
+            with patch("heatrisk.data.discover_historical_url", return_value=historical_url):
+                with patch("heatrisk.data._read_url", side_effect=[
+                    archive(20231231), archive(20240101), archive(20240102)
+                ]) as read_url:
+                    first = load_dwd_daily(cache_dir=cache)
+                    second = load_dwd_daily(cache_dir=cache)
+
+        self.assertEqual(first.index.max(), pd.Timestamp("2024-01-01"))
+        self.assertEqual(second.index.max(), pd.Timestamp("2024-01-02"))
+        self.assertEqual(read_url.call_count, 3)
+        self.assertEqual(read_url.call_args_list[0].args, (historical_url,))
+
     def test_clean_daily_replaces_sentinel_and_deduplicates(self):
         frame = pd.DataFrame(
             {

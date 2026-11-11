@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import io
 import re
+import tempfile
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -63,20 +64,26 @@ def clean_daily(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def load_dwd_daily(station_id: int = 917, cache_dir: Path | str = ".cache/dwd") -> pd.DataFrame:
-    """Download/cache, merge, and clean historical plus recent DWD observations."""
+    """Cache the named historical archive and fetch fresh recent observations."""
     cache = Path(cache_dir)
     cache.mkdir(parents=True, exist_ok=True)
-    sources = {
-        "historical": discover_historical_url(station_id),
-        "recent": recent_url(station_id),
-    }
-    frames: list[pd.DataFrame] = []
-    for label, url in sources.items():
-        destination = cache / f"station_{station_id:05d}_{label}.zip"
-        if not destination.exists():
-            destination.write_bytes(_read_url(url))
-        frames.append(_parse_archive(destination.read_bytes()))
-    return clean_daily(pd.concat(frames, ignore_index=True))
+    historical_url = discover_historical_url(station_id)
+    destination = cache / historical_url.rsplit("/", 1)[-1]
+    if destination.exists():
+        historical = _parse_archive(destination.read_bytes())
+    else:
+        payload = _read_url(historical_url)
+        historical = _parse_archive(payload)
+        with tempfile.NamedTemporaryFile(dir=cache, delete=False) as temporary:
+            temporary_path = Path(temporary.name)
+            try:
+                temporary.write(payload)
+                temporary.close()
+                temporary_path.replace(destination)
+            finally:
+                temporary_path.unlink(missing_ok=True)
+    recent = _parse_archive(_read_url(recent_url(station_id)))
+    return clean_daily(pd.concat([historical, recent], ignore_index=True))
 
 
 def save_processed(frame: pd.DataFrame, path: Path | str) -> None:
