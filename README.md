@@ -7,7 +7,7 @@ Next-day forecasts of maximum temperature and hot-day risk for Darmstadt, built 
 - the maximum temperature on day $t+1$, with a nominal 80% residual-calibrated prediction interval, and
 - the probability that day $t+1$ is a hot day in the DWD sense ($T_{\max} \ge 30\,^\circ\mathrm{C}$).
 
-I built the daily data pipeline, compared the forecasts with persistence and seasonal climatology, and estimated a long-term trend in the number of hot days. The first complete version in GitHub is from [17 August 2026](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/commit/b5dc5cc).
+I built the daily data pipeline, compared the forecasts with persistence and seasonal climatology, and estimated a long-term trend in the number of hot days. I built the pipeline and models from April to June 2026, then updated the data and ran the final evaluation in July and August 2026. The first complete version in GitHub is from [17 August 2026](https://github.com/MUmairSarwar/germany-heat-risk-forecasting/commit/b5dc5cc).
 
 ![Heat-risk dashboard](outputs/heat_risk_dashboard.png)
 
